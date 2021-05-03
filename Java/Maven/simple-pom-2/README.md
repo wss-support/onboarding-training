@@ -6,7 +6,7 @@
 * Additionally you need to have Maven Package Manager installed 
 
 ## What to do?
-* Download the pom.xml to the computer you are going to run the Unified Agent
+* Download pom.xml to the computer you are going to run the UA
 * Run the UA scan with '-logLevel debug' 
 
 ## What are the results?
