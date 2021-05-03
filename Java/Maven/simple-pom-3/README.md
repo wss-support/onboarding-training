@@ -15,4 +15,4 @@
 * Review the project created by the UA in WS UI. How many dependencies are there?
 * Are there any errors in the log? Why?
 * Pull update request for this scan and find out where are the missing dependencies?
-* **Fix your local pom.xml to see all the direct dependencies**
+* **Fix your local pom.xml to see all the direct dependencies in WS UI**
