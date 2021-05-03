@@ -9,7 +9,7 @@
 * Download pom.xml to the computer you are going to run the UA
 * Run the UA scan with '-logLevel debug' 
 
-## What are the results?
+## Review
 * Review the pom.xml. How many dependencies are there?
 * Review the project created by the UA in WS UI. How many dependencies are there?
 * Are there any vulnerabilities?
