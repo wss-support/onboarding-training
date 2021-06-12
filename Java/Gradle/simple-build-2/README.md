@@ -13,3 +13,4 @@
 * Review the build.gradle. How many dependencies are there?
 * Review the project created by the UA in WS UI. How many dependencies are there?
 * Are there any vulnerabilities?
+* Modify the comfig file so the scan results only reflect the compile dependencies.
