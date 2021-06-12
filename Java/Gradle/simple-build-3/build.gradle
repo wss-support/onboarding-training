@@ -1,0 +1,130 @@
+plugins {
+    id 'java-library'
+    id 'scala'
+}
+
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+    acceptance {
+        java {
+            srcDir 'src/acceptance/java'
+        }
+    }
+    performance {
+        scala {
+            srcDir 'src/performance/scala'
+        }
+    }
+    acceptanceUnit {
+        java {
+            srcDir 'src/acceptanceUnit/java'
+        }
+        resources {
+            srcDir 'src/acceptanceUnit/resources'
+        }
+        compileClasspath += test.output + acceptance.output
+        runtimeClasspath += test.output + acceptance.output
+    }
+}
+
+description = """
+ please ensure bogiefile is setup to reflect this
+"""
+
+test {
+    useJUnitPlatform()
+    systemProperties([
+        // Configuration parameters to execute top-level classes in parallel but methods in same thread
+        'junit.jupiter.execution.parallel.enabled': 'true',
+        'junit.jupiter.execution.parallel.mode.default': 'same_thread',
+        'junit.jupiter.execution.parallel.mode.classes.default': 'concurrent',
+    ])
+    classpath = classpath.filter {!it.name.contains('slf4j-simple')}
+    finalizedBy jacocoTestReport
+}
+
+task testAcceptance(type: Test) {
+    useJUnitPlatform()
+    systemProperties([
+        // Configuration parameters to execute top-level classes in parallel but methods in same thread
+        'junit.jupiter.execution.parallel.enabled': 'true',
+        'junit.jupiter.execution.parallel.mode.default': 'same_thread',
+        'junit.jupiter.execution.parallel.mode.classes.default': 'concurrent',
+    ])
+    dependsOn assemble, compileAcceptanceUnitJava
+    testClassesDirs = sourceSets.acceptanceUnit.output.classesDirs
+    classpath = sourceSets.acceptanceUnit.runtimeClasspath
+}
+
+configurations {
+    acceptanceImplementation.extendsFrom testImplementation
+
+    acceptanceUnitImplementation.extendsFrom acceptanceImplementation
+}
+dependencies {
+    String uberTestClientVersion = "2.3.2"
+    String daggerVersion = "2.32"
+
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    implementation('com.jayway.jsonpath:json-path:2.5.0') {
+        // vulnerable lib, not required as we use Gson
+        exclude group: 'net.minidev', module: 'json-smart'
+    }
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation platform('software.amazon.awssdk:bom:2.15.82')
+    implementation 'software.amazon.awssdk:apache-client'
+    implementation 'software.amazon.awssdk:sqs'
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+    implementation 'com.amazonaws:aws-lambda-java-events:2.2.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.hibernate.validator:hibernate-validator:6.1.5.Final'
+    implementation 'javax.el:javax.el-api:3.0.0'
+    implementation 'org.glassfish:javax.el:3.0.0'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+    implementation 'org.apache.commons:commons-text:1.9'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation 'org.assertj:assertj-core:3.19.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.8.0'
+    testImplementation 'uk.org.lidalia:slf4j-test:1.2.0'
+    testImplementation 'org.json:json:20200518'
+
+    acceptanceImplementation 'io.cucumber:cucumber-picocontainer:6.10.3'
+    acceptanceImplementation 'org.assertj:assertj-core:3.19.0'
+}
+
+// build a fat jar - with a constant name for Bogie deployment :(
+jar {
+    from(configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }) {
+        exclude 'log4j2.xml'
+    }
+    archiveFileName.set("${project.name}.jar")
+}
+
+// compile java will run spotless apply so we don;t have to remember
+compileJava.dependsOn 'spotlessApply'
+test.dependsOn 'staticAnalysis'
+localAcceptanceInit.dependsOn 'test'
+localAcceptanceInit.dependsOn 'testAcceptance'
+
+// Disabled locally - see README.md
+localPerformanceTest.enabled = false
