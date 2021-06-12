@@ -9,4 +9,4 @@
 * Download build.gradle to the computer you are going to run the UA
 * Run the UA scan with '-logLevel debug' 
 * After you get the results, make sure to resolve the library with the most number of vulnerabilities. 
-  * Hint: this library is not a direct dependency!  
+  * **Hint**: this library is not a direct dependency!  
