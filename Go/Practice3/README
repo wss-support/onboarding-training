@@ -1,0 +1,5 @@
+In the practice 3 folder run the following commands:
+go mod why –m github.com/gookit/color
+go mod why –m github.com/mholt/archiver/v3
+What do the results tell you?
+
