@@ -31,7 +31,7 @@ Repository | Package Manager | Environment | Branch |
 
 
 [aparsons/bag-of-holding](https://github.com/aparsons/bag-of-holding) | Bower / NPM / Python | - | v0.0.6 |
-
-
+[alarcity/alarcity](https://github.com/alacritty/alacritty) | Cargo | - | - |
+[rustsec/rustsec](https://github.com/rustsec/rustsec) | Cargo | - | - |
 
 
