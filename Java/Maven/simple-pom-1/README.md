@@ -17,5 +17,13 @@
 * Why this extra dependency is Unknown and with License Requires Review? 
 * What happened in the folder you ran the scan on? What was created there? Why?
 * What does target folder contain?
-* Do you see the following line in your UA log "Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-module-fml/1.0/doxia-module-fml-1.0.jar (19 kB at 29 kB/s)" OR "Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.7/plexus-components-1.1.7.pom (5.0 kB at 46 kB/s)"? If yes, where were they downloaded to? Why? 
+* Do you see the following line in your UA log 
+```bash
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-module-fml/1.0/doxia-module-fml-1.0.jar (19 kB at 29 kB/s)
+```
+OR
+```bash
+Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.1.7/plexus-components-1.1.7.pom (5.0 kB at 46 kB/s)
+```
+If yes, where were they downloaded to? Why? 
 
