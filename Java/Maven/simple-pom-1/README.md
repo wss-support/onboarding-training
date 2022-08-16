@@ -7,9 +7,9 @@
 
 ## What to do?
 * Download pom.xml to the box you are going to run the UA on
-* Run the UA scan with '-logLevel debug'
-* Run the scan with OOTB config and note the result? Are there any dependencies resolved by Package Manager Resolution? Why? If yes, did you run any maven commands manually?
-* Run the scan with maven.runPreStep=true and note the results. How long did it take to run the scan this time? Why? 
+* Run the UA scan with `-logLevel debug` the following way:
+  * Run the scan with OOTB config and note the result? Are there any dependencies resolved by Package Manager Resolution? Why? If yes, did you run any maven commands manually?
+  * Run the scan with maven.runPreStep=true and note the results. How long did it take to run the scan this time? Why? 
 
 ## Review
 * Review the pom.xml. How many dependencies are there?
