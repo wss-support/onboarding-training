@@ -6,13 +6,13 @@
 * Additionally you need to have Maven Package Manager installed 
 
 ## What to do?
-* Download pom.xml to the computer you are going to run the UA
-* Run the UA scan with '-logLevel debug' 
+* Download pom.xml to the box you are going to run the UA on
+* Run the UA scan with `maven.runPreStep=true` and `-logLevel debug`
 
 ## Review
-* Review the pom.xml. How many dependencies are there?
-* Review the summary of the scan. How many total dependencies are there?
-* Review the project created by the UA in WS UI. How many dependencies are there?
-* Are there any errors in the log? Why?
-* Pull update request for this scan and find out where are the missing dependencies?
-* **Fix your local pom.xml to see all the direct dependencies in WS UI**
+* How many unique Maven dependencies were resolved? [5] 
+* How many dependencies are there in the pom.xml? [3] 
+* How many libraries do you see in WS UI? [6] Does junit-platform-engine dependency appear in the Mend UI results? Why?
+* Pull the update request for this scan. Does the update request contain junit-platform-engine? Why?
+* Rerun the scan in such a way so all the dependencies that are in the pom.xml appear in the Mend UI. What changes did you need to make to get the required result?
+* Pull the update request for the latest scan. Does the update request contain junit-platform-engine? Why?
